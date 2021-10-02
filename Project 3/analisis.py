@@ -80,9 +80,9 @@ def prueba():
     Label(root, text="analisis").pack(fill="x", expand=1)
     for i in range(len(expresion_lista)):
         if(funcionPrinncipal(expresion_lista[i])==0):
-            Label(root, text="la expresion "+expresion_lista[i]+" esta bien escrita").pack(fill="x", expand=1)
+            Label(root, text="la expresion: "+expresion_lista[i]+" ¡ES CORRECTA!").pack(fill="x", expand=1)
         else:
-            Label(root, text="la expresion " + expresion_lista[i] + " esta mal escrita").pack(fill="x", expand=1)
+            Label(root, text="la expresion: " + expresion_lista[i] + " ¡ES INCORRECTA!").pack(fill="x", expand=1)
 
 # Configuración de la raíz
 root = Tk()
