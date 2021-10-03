@@ -1,3 +1,10 @@
+#
+#	Class: Taller_3
+# 	
+# 	Title:	Integrantes
+# 	-  Maribel Orozco Alzate.
+#	-  Julián Patiño Rincón.
+#
 from tkinter import *
 from tkinter import filedialog as FileDialog, messagebox, ttk
 from io import open
@@ -6,7 +13,11 @@ from ExpresionMatematica import funcionPrinncipal
 
 ruta = "" # aqui almaceno la ruta del fichero
 
-#funcion de las opciones del menu superior
+#
+#   	Function: Nuevo
+#  
+#  		Función perteneciente al menú superior de la interfaz. Permite limpiar la pantalla para examinar un nuevo archivo.
+#
 def nuevo():
     global ruta
     #mensaje.set("Nuevo fichero")
@@ -14,6 +25,11 @@ def nuevo():
     texto.delete(1.0, "end")
     root.title("analizador lexico")
 
+#
+#   	Function: abrir
+#  
+#  		Función perteneciente al menú superior de la interfaz. Permite examinar un archivo.
+#
 def abrir():
     global ruta
     #mensaje.set("Abrir fichero")
@@ -30,17 +46,11 @@ def abrir():
         fichero.close()
         root.title(ruta)
 
-def guardar():
-    #mensaje.set("Guardar fichero")
-    if ruta != "":
-        contenido = texto.get(1.0,'end-1c')
-        fichero = open(ruta, 'w+')
-        fichero.write(contenido)
-        fichero.close()
-      # mensaje.set("Fichero guardado correctamente")
-    else:
-        guardar_como()
-
+#
+#   	Function: guardar_como
+#  
+#  		Función perteneciente al menú superior de la interfaz. Permite guardar el análisis hecho.
+#
 def guardar_como():
     global ruta
     #mensaje.set("Guardar fichero como")
@@ -59,7 +69,12 @@ def guardar_como():
       #  mensaje.set("Guardado cancelado")
         ruta = ""
 
-#aqui ejecuto el analisis lexico que se encuentra en el archivo AnalisisLexico.py
+
+#
+#   	Function: analisisLexico
+#  
+#  		Ejecuta la clase <AnalisisLexico>
+#
 def analisisLexico():
     tabla.delete(*tabla.get_children())
     tabla2.delete(*tabla.get_children())
@@ -72,7 +87,12 @@ def analisisLexico():
 
     else :
         messagebox.showinfo(message="Codigo fuente vacío"+'\n', title="Codigo fuente no encontrado")
-
+        
+#
+#   	Function: prueba
+#  
+#  		Ejecuta la función <analisisLexico> e imprime si las expresiones son correctas o incorrectas
+#
 def prueba():
     
     if(ruta!=""):
@@ -82,9 +102,9 @@ def prueba():
         Label(root, text="analisis").pack(fill="x", expand=1)
         for i in range(len(expresion_lista)):
             if(funcionPrinncipal(expresion_lista[i])==0):
-                 Label(root, text="la expresion "+expresion_lista[i]+" ").pack(fill="x", expand=1)
+                 Label(root, text="la expresion "+expresion_lista[i]+" ¡ES CORRECTA!").pack(fill="x", expand=1)
             else:
-                Label(root, text="la expresion " + expresion_lista[i] + " esta mal escrita").pack(fill="x", expand=1)
+                Label(root, text="la expresion " + expresion_lista[i] + " ¡ES INCORRECTA!").pack(fill="x", expand=1)
     else:
         messagebox.showinfo(message="Codigo fuente vacío"+'\n', title="Codigo fuente no encontrado")
 
@@ -98,13 +118,13 @@ frame = Frame(root)
 frame.pack(padx=0, pady=0, ipadx=50, ipady=10)
 #frame.pack(side="bottom", fill="x", expand=1)
 
-# Menú superior, donde en la opcion de archivo puedo guardar, guardar como, abrir mi codigo y salir
-#en la opcion de analisis puedo ejecutar el analisis lexico, pero solo si existe codigo cargado
+# Menú superior, donde en la opcion de "Archivo" puedo:  Guardar como, abrir mi codigo y salir
+# En la opcion de "Análisis" puedo: ejecutar el 1- analisis lexico (si y sólo si, existe codigo cargado) y 
+# 2- Análisis de expresiones (si y sólo sí, ya se ejecutó antes 1- analisis lexico)
 menubar = Menu(root)
 filemenu = Menu(menubar, tearoff=0)
 filemenu.add_command(label="Nuevo", command=nuevo)
 filemenu.add_command(label="Abrir", command=abrir)
-filemenu.add_command(label="Guardar", command=guardar)
 filemenu.add_command(label="Guardar como", command=guardar_como)
 filemenu.add_separator()
 filemenu.add_command(label="Salir", command=root.quit())

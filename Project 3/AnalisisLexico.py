@@ -1,3 +1,6 @@
+#
+#   Class: AnalisisLexico
+#
 operadoresString= ["operadores ",","," separadores"]
 condicionalesString=["condicionales ",","," palabras reservadas"]
 #diccionario de los operadores, aqui almaceno el token, el tipo al que pertenece, su ID y su lexema
@@ -49,7 +52,15 @@ listSimReservados = list(SimbolosReservados.keys())
 listSimSeparador = list(simbolosSeparadores.keys())
 lisExpresionesMatematicas = []
 
-# Se verifica si pertenece a las palabras reservadas
+#
+#   	Function: funVerificarSimb
+#  
+#  		Verifica si pertenece a las palabras reservadas.
+#
+#       Parameters:
+#       string - Cadena que se comparará con el parámetro <simbolo>
+#       simbolo - Símbolo que se comparará con el parámetro <string>
+#
 def funVerificarSimb(string, simbolo):
     i=0
     if(len(string) == len(simbolo)):
@@ -60,7 +71,20 @@ def funVerificarSimb(string, simbolo):
         else: return 1
     else: return -1
 
-#Se guardan los símbolos que sean del lenguaje incluyendo los separadores.
+#
+#   	Function: FunGuardarSim
+#  
+#  		Guardará los símbolos que sean del lenguaje (Incluyendo los separadores).
+#
+#       Parameters:
+#       subCad - Cadena que se insertará en las tablas
+#       c - Auxiliar
+#       linea - Ubicación con respecto a la linea
+#       ubicacionSim - Ubicación con respecto a la columna
+#       tabla - Tabla superior mostrada en la interfaz
+#       tabla2 - Tabla inferior mostrada en la interfaz
+#       sentencia - Se evaluará para saber si corresponde a una expresión matemática
+#
 def FunGuardarSim(subCad, c, linea, ubicacionSim, tabla,tabla2, sentencia):
     i=0
     l=linea-1
@@ -74,30 +98,48 @@ def FunGuardarSim(subCad, c, linea, ubicacionSim, tabla,tabla2, sentencia):
         #agregando a tablas los datos del primer taller y segundo
         tabla.insert("", 'end',values=("-",simbolosSeparadores[c]['tipos'],linea, ubicacionSim,c))
         tabla2.insert("", 'end',values=("-", simbolosSeparadores[c]['lexema'],simbolosSeparadores[c]['IDtoken'],c))
-        #para saber si hay una expresion matematica
+        #para saber si hay una expresion matemática
         if(funIsOperador(c)==-1 and c!="\n" ):
             lisExpresionesMatematicas.append(sentencia[0:len(sentencia)-1])
 
-
-
-#Para saber si se esta sobre un operador, esto ayuda a la hora de saber si se esta en un expresión matemática
+#
+#   	Function: funIsOperador
+#  
+#  		Revisa si se está sobre un operador, con esto nos apoyaremos para saber 
+#       si hay o no, una expresión matemática
+#
+#       Parameters:
+#       c - Caracter que será comparado con un operador matemático.
+#
 def funIsOperador(c):
     for s in listSimOper:
         if c==s:
             return -1
 
 #funcion que evalua si hay un separador, si es asi retorna -1.
+#   	Function: funIsOperador
+#  
+#  		Revisa si se está sobre un operador, con esto nos apoyaremos para saber si 
+#       hay o no, una expresión matemática
+#
+#       Parameters:
+#       c - Caracter que será comparado con un operador matemático.
+#
 def funIsSeparador(c):
     for s in listSimSeparador:
         if c==s:
             return -1
 
-#Separa las palabras del código fuente, según los separadores, para luego ser evaluadas
-#si es o no una palabra reservada del lenguaje
+
+#   	Function: funSeparar
+#  
+#  		Separa las palabras de código fuente, según los separadores, para 
+#       posteriormente ser evaluadas y así saber si
+#       es una palabra reservada del lenguaje
+#
 def funSeparar(c,k,tabla,tabla2):
     subCad=""
     for i in range(0,len(c)):
-        #print (c,end="")
         if (funIsSeparador(c[i])!=-1):
             subCad+=c[i]
         else:
@@ -110,6 +152,16 @@ def funSeparar(c,k,tabla,tabla2):
 #Se lee el archivo "codigoFuente" donde se encuentra el codigo a analizar
 #Se lee línea por línea y se pasa cada línea a la función "funSeparar()" donde se separan las palabras
 
+#   	Function: funAnlisis
+#  
+#  		Lee el archivo pasado como parámetro línea por línea, donde cada una se estas se pasarán a la función <funSeparar>, donde 
+#       se separarán por palabras
+#
+#       Parameters:
+#       codigoFuente - Archivo donde se encuentra el código que se analizará
+#       tabla - Tabla superior mostrada en la interfaz
+#       tabla2 - Tabla inferior mostrada en la interfaz
+#
 def funAnlisis(codigoFuente,tabla,tabla2):
     lisExpresionesMatematicas.clear()
     codigoFuente = open(codigoFuente, "r")

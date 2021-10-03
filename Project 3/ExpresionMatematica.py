@@ -1,3 +1,6 @@
+#
+#   Class: ExpresionMatematica
+#
 PosicionCinta=0
 TokenEntrada=""
 cadena=""
