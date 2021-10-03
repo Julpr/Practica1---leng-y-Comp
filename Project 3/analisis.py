@@ -4,8 +4,7 @@ from io import open
 from AnalisisLexico import *
 from ExpresionMatematica import funcionPrinncipal
 
-# Inicializamos la ruta del fichero como vacía
-ruta = "" 
+ruta = "" # aqui almaceno la ruta del fichero
 
 #funcion de las opciones del menu superior
 def nuevo():
@@ -60,7 +59,7 @@ def guardar_como():
       #  mensaje.set("Guardado cancelado")
         ruta = ""
 
-# Acá se ejecuta el analisis lexico que se encuentra en el archivo AnalisisLexico.py
+#aqui ejecuto el analisis lexico que se encuentra en el archivo AnalisisLexico.py
 def analisisLexico():
     tabla.delete(*tabla.get_children())
     tabla2.delete(*tabla.get_children())
@@ -75,6 +74,7 @@ def analisisLexico():
         messagebox.showinfo(message="Codigo fuente vacío"+'\n', title="Codigo fuente no encontrado")
 
 def prueba():
+    
     if(ruta!=""):
         texto.pack_forget()
         frame.pack_forget()
@@ -87,6 +87,8 @@ def prueba():
                 Label(root, text="la expresion " + expresion_lista[i] + " esta mal escrita").pack(fill="x", expand=1)
     else:
         messagebox.showinfo(message="Codigo fuente vacío"+'\n', title="Codigo fuente no encontrado")
+
+            
 
 # Configuración de la raíz
 root = Tk()
@@ -109,8 +111,8 @@ filemenu.add_command(label="Salir", command=root.quit())
 menubar.add_cascade(menu=filemenu, label="Archivo")
 
 menuAnalisis = Menu(menubar, tearoff=0)
-menuAnalisis.add_command(label="1- Análisis léxico", command=analisisLexico)
-menuAnalisis.add_command(label="2- Análisis de expresiones", command=prueba)
+menuAnalisis.add_command(label="1- Analisis lexico", command=analisisLexico)
+menuAnalisis.add_command(label="2- Analisis de expresiones", command=prueba)
 menubar.add_cascade(menu=menuAnalisis, label="Analisis")
 root.config(menu=menubar)
 
